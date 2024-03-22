@@ -1,21 +1,27 @@
+/* App.css */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: center;
 }
 
 .gradient-background {
-  background: linear-gradient(45deg, #ff6b6b, #556270);
+  background: linear-gradient(45deg, #f44336, #ff1744);
   color: white;
   padding: 20px;
-  border-radius: 10px; /* Adiciona borda redonda */
-  margin-bottom: 20px; /* Adiciona espaço entre o container e os elementos abaixo */
+  border-radius: 10px;
+  margin-bottom: 20px;
   margin-top: 15px;
 }
 
 .card-black {
-  background-color: black;
-  border-radius: 10px; /* Adiciona borda redonda aos cards */
+  background-color: #000;
+  color: white;
+  border-radius: 10px;
 }
 
-.modal-content {
-  border-radius: 10px; /* Adiciona borda redonda ao modal */
-}

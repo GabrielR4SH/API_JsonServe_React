@@ -1,15 +1,22 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Card, CardBody, CardTitle, CardText, Container, Row, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'; // Importe seu arquivo de estilo CSS personalizado
+import './App.css';
+import { RiDeleteBinLine, RiEdit2Line } from 'react-icons/ri';
 
 function App() {
   const [products, setProducts] = useState([]);
   const [modal, setModal] = useState(false);
   const [newProduct, setNewProduct] = useState({ name: '', price: '' });
   const [buttonColor, setButtonColor] = useState('primary');
+  const [editModal, setEditModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [editProduct, setEditProduct] = useState(null);
+  const [deleteProduct, setDeleteProduct] = useState(null);
 
   const toggle = () => setModal(!modal);
+  const toggleEditModal = () => setEditModal(!editModal);
+  const toggleDeleteModal = () => setDeleteModal(!deleteModal);
 
   const url = "http://localhost:3000/products";
 
@@ -19,7 +26,7 @@ function App() {
       const data = await res.json();
       setProducts(data);
     };
-    
+
     fetchData();
   }, []);
 
@@ -37,9 +44,9 @@ function App() {
             return 'primary';
         }
       });
-    }, 1000); // Intervalo de 1 segundo para trocar as cores
+    }, 1000);
 
-    return () => clearInterval(intervalId); // Limpa o intervalo quando o componente é desmontado
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleInputChange = (e) => {
@@ -62,6 +69,46 @@ function App() {
     setNewProduct({ name: '', price: '' });
   };
 
+  const handleEdit = (product) => {
+    setEditProduct(product);
+    toggleEditModal();
+  };
+
+  const handleDelete = (product) => {
+    setDeleteProduct(product);
+    toggleDeleteModal();
+  };
+
+  const handleDeleteConfirm = async () => {
+    const res = await fetch(`${url}/${deleteProduct.id}`, {
+      method: 'DELETE'
+    });
+    if (res.ok) {
+      setProducts(products.filter(p => p.id !== deleteProduct.id));
+    }
+    toggleDeleteModal();
+  };
+
+  const handleEditInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditProduct({ ...editProduct, [name]: value });
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    const res = await fetch(`${url}/${editProduct.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(editProduct)
+    });
+    if (res.ok) {
+      setProducts(products.map(p => (p.id === editProduct.id ? editProduct : p)));
+      toggleEditModal();
+    }
+  };
+
   return (
     <Container className="gradient-background">
       <h1 className="mt-5 mb-4">Lista de Produtos</h1>
@@ -73,6 +120,10 @@ function App() {
               <CardBody>
                 <CardTitle tag="h5" className="text-white">{product.name}</CardTitle>
                 <CardText className="text-white">Preço: R${product.price}</CardText>
+                <div className="d-flex justify-content-between align-items-center">
+                  <RiEdit2Line size={24} style={{ cursor: 'pointer', marginRight: 10 }} onClick={() => handleEdit(product)} />
+                  <RiDeleteBinLine size={24} style={{ cursor: 'pointer' }} onClick={() => handleDelete(product)} />
+                </div>
               </CardBody>
             </Card>
           </Col>
@@ -91,6 +142,32 @@ function App() {
         <ModalFooter>
           <Button color="primary" onClick={handleSubmit}>Adicionar</Button>{' '}
           <Button color="secondary" onClick={toggle}>Cancelar</Button>
+        </ModalFooter>
+      </Modal>
+      <Modal isOpen={editModal} toggle={toggleEditModal}>
+        <ModalHeader toggle={toggleEditModal}>Editar Produto</ModalHeader>
+        <ModalBody>
+          <form onSubmit={handleEditSubmit}>
+            <label>Nome do Produto:</label>
+            <input type="text" name="name" value={editProduct?.name} onChange={handleEditInputChange} className="form-control mb-2" />
+            <label>Preço do Produto:</label>
+            <input type="text" name="price" value={editProduct?.price} onChange={handleEditInputChange} className="form-control" />
+          </form>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={handleEditSubmit}>Salvar</Button>{' '}
+          <Button color="secondary" onClick={toggleEditModal}>Cancelar</Button>
+        </ModalFooter>
+      </Modal>
+
+      <Modal isOpen={deleteModal} toggle={toggleDeleteModal}>
+        <ModalHeader toggle={toggleDeleteModal}>Confirmar exclusão</ModalHeader>
+        <ModalBody>
+          Tem certeza que deseja excluir o produto "{deleteProduct?.name}"?
+        </ModalBody>
+        <ModalFooter>
+          <Button color="danger" onClick={handleDeleteConfirm}>Sim, excluir</Button>{' '}
+          <Button color="secondary" onClick={toggleDeleteModal}>Cancelar</Button>
         </ModalFooter>
       </Modal>
     </Container>

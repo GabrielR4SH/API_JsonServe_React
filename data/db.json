@@ -1,14 +1,54 @@
 {
-    "products": [
-      { "id": 1, "name": "Calça Jeans", "price": 79.99 },
-      { "id": 2, "name": "Camisa Polo", "price": 39.99 },
-      { "id": 3, "name": "Cinto de Couro", "price": 29.99 },
-      { "id": 4, "name": "Calça de Moletom", "price": 49.99 },
-      { "id": 5, "name": "Camisa Social", "price": 59.99 },
-      { "id": 6, "name": "Cinto de Tecido", "price": 19.99 },
-      { "id": 7, "name": "Calça de Alfaiataria", "price": 89.99 },
-      { "id": 8, "name": "Camisa Estampada", "price": 44.99 },
-      { "id": 9, "name": "Cinto LousVitton", "price": 3999.99 }
-    ]
-  }
-  
+  "products": [
+    {
+      "id": 1,
+      "name": "Calça Jeans",
+      "price": 79.99
+    },
+    {
+      "id": 2,
+      "name": "Camisa Polo",
+      "price": 39.99
+    },
+    {
+      "id": 3,
+      "name": "Cinto de Couro",
+      "price": 29.99
+    },
+    {
+      "id": 4,
+      "name": "Calça de Moletom",
+      "price": 49.99
+    },
+    {
+      "id": 5,
+      "name": "Camisa Social",
+      "price": 59.99
+    },
+    {
+      "id": 6,
+      "name": "Cinto de Tecido",
+      "price": 19.99
+    },
+    {
+      "id": 7,
+      "name": "Calça de Alfaiataria",
+      "price": 89.99
+    },
+    {
+      "id": 8,
+      "name": "Camisa Estampada",
+      "price": 44.99
+    },
+    {
+      "id": 9,
+      "name": "Cinto LousVitton",
+      "price": 3999.99
+    },
+    {
+      "id": "4a11",
+      "name": "Tenis Nike",
+      "price": "599.99"
+    }
+  ]
+}

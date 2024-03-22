@@ -7,6 +7,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [modal, setModal] = useState(false);
   const [newProduct, setNewProduct] = useState({ name: '', price: '' });
+  const [buttonColor, setButtonColor] = useState('primary');
 
   const toggle = () => setModal(!modal);
 
@@ -20,6 +21,25 @@ function App() {
     };
     
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setButtonColor((prevColor) => {
+        switch (prevColor) {
+          case 'primary':
+            return 'success';
+          case 'success':
+            return 'dark';
+          case 'dark':
+            return 'primary';
+          default:
+            return 'primary';
+        }
+      });
+    }, 1000); // Intervalo de 1 segundo para trocar as cores
+
+    return () => clearInterval(intervalId); // Limpa o intervalo quando o componente é desmontado
   }, []);
 
   const handleInputChange = (e) => {
@@ -43,10 +63,9 @@ function App() {
   };
 
   return (
-    <Container>
     <Container className="gradient-background">
       <h1 className="mt-5 mb-4">Lista de Produtos</h1>
-      <Button color="primary" onClick={toggle} className="mb-4">Adicionar Produto</Button>
+      <Button color={buttonColor} onClick={toggle} className="mb-4">Adicionar Produto</Button>
       <Row>
         {products.map((product) => (
           <Col md="4" key={product.id}>
@@ -74,7 +93,6 @@ function App() {
           <Button color="secondary" onClick={toggle}>Cancelar</Button>
         </ModalFooter>
       </Modal>
-    </Container>
     </Container>
   );
 }

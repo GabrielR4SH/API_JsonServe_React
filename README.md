@@ -18,3 +18,6 @@ Open [http://localhost:3000](http://localhost:3000/products) to view API it in y
 Run the Project
 Open [http://localhost:3000](http://localhost:3000/) to view this Project it in your browser.
 
+
+<h1>make sure JSON Serve is running on port 3000 for the API and your react file is on port 3001</h1>
+

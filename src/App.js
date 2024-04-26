@@ -138,7 +138,8 @@ function App() {
           </Col>
         ))}
       </Row>
-      <Pagination>
+      <Container style={{ display: 'flex', justifyContent: 'center' }}>
+      <Pagination size='lg'>
         <PaginationItem disabled={currentPage === 1}>
           <PaginationLink first onClick={() => paginate(1)} />
         </PaginationItem>
@@ -159,6 +160,7 @@ function App() {
           <PaginationLink last onClick={() => paginate(Math.ceil(products.length / productsPerPage))} />
         </PaginationItem>
       </Pagination>
+      </Container>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Novo Produto</ModalHeader>
         <ModalBody>

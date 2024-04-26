@@ -48,7 +48,52 @@
     {
       "id": "0aa4",
       "name": "Carro novo",
-      "price": "45214"
+      "price": "45.000"
+    },
+    {
+      "id": "10",
+      "name": "Jaqueta de Couro",
+      "price": 129.99
+    },
+    {
+      "id": "11",
+      "name": "Calça Legging",
+      "price": 34.99
+    },
+    {
+      "id": "12",
+      "name": "Blusa de Tricot",
+      "price": 54.99
+    },
+    {
+      "id": "13",
+      "name": "Shorts Jeans",
+      "price": 29.99
+    },
+    {
+      "id": "14",
+      "name": "Regata Básica",
+      "price": 19.99
+    },
+    {
+      "id": "15",
+      "name": "Vestido Floral",
+      "price": 69.99
+    },
+    {
+      "id": "16",
+      "name": "Sapato Social",
+      "price": 99.99
+    },
+    {
+      "id": "17",
+      "name": "Bolsa de Couro",
+      "price": 149.99
+    },
+    {
+      "id": "18",
+      "name": "Óculos de Sol",
+      "price": 79.99
     }
   ]
 }

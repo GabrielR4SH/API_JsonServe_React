@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Card, CardBody, CardTitle, CardText, Container, Row, Col } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Card, CardBody, CardTitle, CardText, Container, Row, Col, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { RiDeleteBinLine, RiEdit2Line } from 'react-icons/ri';
@@ -13,6 +13,8 @@ function App() {
   const [deleteModal, setDeleteModal] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
   const [deleteProduct, setDeleteProduct] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 9;
 
   const toggle = () => setModal(!modal);
   const toggleEditModal = () => setEditModal(!editModal);
@@ -109,12 +111,19 @@ function App() {
     }
   };
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
   return (
     <Container className="gradient-background">
       <h1 className="mt-5 mb-4">Lista de Produtos</h1>
       <Button color={buttonColor} onClick={toggle} className="mb-4">Adicionar Produto</Button>
+      <hr/>
       <Row>
-        {products.map((product) => (
+        {currentProducts.map((product) => (
           <Col md="4" key={product.id}>
             <Card className="mb-3 card-black">
               <CardBody>
@@ -129,6 +138,27 @@ function App() {
           </Col>
         ))}
       </Row>
+      <Pagination>
+        <PaginationItem disabled={currentPage === 1}>
+          <PaginationLink first onClick={() => paginate(1)} />
+        </PaginationItem>
+        <PaginationItem disabled={currentPage === 1}>
+          <PaginationLink previous onClick={() => paginate(currentPage - 1)} />
+        </PaginationItem>
+        {[...Array(Math.ceil(products.length / productsPerPage))].map((_, index) => (
+          <PaginationItem key={index} active={index + 1 === currentPage}>
+            <PaginationLink onClick={() => paginate(index + 1)}>
+              {index + 1}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
+        <PaginationItem disabled={currentPage === Math.ceil(products.length / productsPerPage)}>
+          <PaginationLink next onClick={() => paginate(currentPage + 1)} />
+        </PaginationItem>
+        <PaginationItem disabled={currentPage === Math.ceil(products.length / productsPerPage)}>
+          <PaginationLink last onClick={() => paginate(Math.ceil(products.length / productsPerPage))} />
+        </PaginationItem>
+      </Pagination>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Novo Produto</ModalHeader>
         <ModalBody>

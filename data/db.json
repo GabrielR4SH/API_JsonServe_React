@@ -44,6 +44,11 @@
       "id": "9",
       "name": "Cinto LousVitton",
       "price": 3999.99
+    },
+    {
+      "id": "0aa4",
+      "name": "Carro novo",
+      "price": "45214"
     }
   ]
 }
